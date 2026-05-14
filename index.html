@@ -3,573 +3,842 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecology Master Quiz 🌍</title>
-    <!-- Tailwind CSS for modern, responsive styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            dark: '#0f172a',
-                            card: '#1e293b',
-                            primary: '#10b981', // Emerald green
-                            secondary: '#3b82f6', // Blue
-                            accent: '#8b5cf6', // Purple
-                        }
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.5s ease-out',
-                        'bounce-slight': 'bounceSlight 0.5s ease-in-out',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0', transform: 'translateY(10px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        bounceSlight: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-5px)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Biology Test Prep: Sensory Organs</title>
     <style>
-        /* Custom styles for smooth transitions */
-        .btn-option {
-            transition: all 0.2s ease;
+        :root {
+            --primary: #FF6B6B;     /* Vivid Coral */
+            --secondary: #4ECDC4;   /* Friendly Teal */
+            --accent: #FFE66D;      /* Cheerful Yellow */
+            --background: #F7FFF7;  /* Soft Mint Background */
+            --text-main: #2F3640;   /* Dark Blue/Gray */
+            --correct: #2ED573;     /* Green */
+            --incorrect: #FF4757;   /* Red */
+            --dnd-bg: #E0F7FA;
+            --dnd-border: #00BCD4;
         }
-        .btn-option:hover:not(:disabled) {
-            transform: scale(1.02);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+            margin: 0;
         }
-        .correct {
-            background-color: #10b981 !important; /* Emerald */
-            color: white !important;
-            border-color: #10b981 !important;
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-top: 8px solid var(--primary);
         }
-        .incorrect {
-            background-color: #ef4444 !important; /* Red */
-            color: white !important;
-            border-color: #ef4444 !important;
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
-        .disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
+
+        p.subtitle {
+            text-align: center;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
         }
-        .hide {
-            display: none !important;
+
+        .instructions {
+            background-color: #fff9e6;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 5px solid var(--accent);
+            margin-bottom: 30px;
+            font-size: 1.05rem;
+        }
+
+        .section-title {
+            color: white;
+            background-color: var(--secondary);
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .question-block {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f1f8f8;
+            border-left: 5px solid var(--secondary);
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .question-text {
+            font-weight: bold;
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+        }
+
+        /* Multiple Choice Styles */
+        .options label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: white;
+            border: 1px solid #ddd;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .options label:hover {
+            background-color: #e0f2f1;
+            border-color: var(--secondary);
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        /* Gap filling specific styles */
+        .gap-text {
+            font-size: 1.1rem;
+            line-height: 2.2;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        select {
+            appearance: none;
+            background-color: #f8f9fa;
+            border: 2px solid var(--secondary);
+            border-radius: 6px;
+            padding: 4px 25px 4px 10px;
+            font-size: 1rem;
+            color: var(--text-main);
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%234ECDC4" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 2px center;
+            transition: border-color 0.3s;
+        }
+
+        select:focus { border-color: var(--primary); }
+
+        /* Diagram Styles */
+        .diagram-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 20px auto;
+            background-color: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .diagram-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .diagram-select {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 0.9rem;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Drag and Drop Styles */
+        .dnd-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .draggables-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px;
+            background-color: var(--dnd-bg);
+            border: 2px dashed var(--dnd-border);
+            border-radius: 10px;
+            min-height: 60px;
+        }
+
+        .draggable-item {
+            background-color: white;
+            border: 2px solid var(--dnd-border);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: grab;
+            font-weight: bold;
+            color: #00796B;
+            user-select: none;
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+        
+        .draggable-item:active { cursor: grabbing; }
+        .draggable-item.dragging { opacity: 0.5; }
+        .draggable-item.selected { background-color: var(--accent); border-color: #d4a017; } /* For click fallback */
+
+        .drop-zones-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .drop-zone-row {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .drop-zone-text {
+            flex: 1;
+            font-size: 1.05rem;
+        }
+
+        .drop-zone-target {
+            min-width: 220px;
+            min-height: 40px;
+            border: 2px dashed #ccc;
+            border-radius: 20px;
+            background-color: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s, border-color 0.2s;
+            cursor: pointer;
+        }
+
+        .drop-zone-target.drag-over {
+            background-color: #e8f5e9;
+            border-color: #4caf50;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            margin-top: 40px;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(255, 107, 107, 0.3);
+            transition: background 0.3s, transform 0.1s;
+        }
+
+        .btn-submit:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        #results {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: none;
+        }
+
+        .feedback-icon {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+
+        .correct-text { color: var(--correct); }
+        .incorrect-text { color: var(--incorrect); }
+
+        @media (max-width: 768px) {
+            .drop-zone-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .drop-zone-target { width: 100%; }
+            .diagram-select { font-size: 0.75rem; padding: 2px 15px 2px 5px; }
         }
     </style>
 </head>
-<body class="bg-brand-dark text-slate-200 min-h-screen font-sans selection:bg-brand-primary selection:text-white flex items-center justify-center p-4">
+<body>
 
-    <!-- App Container -->
-    <div class="w-full max-w-2xl">
-        
-        <!-- Welcome Screen -->
-        <div id="welcome-screen" class="bg-brand-card rounded-3xl shadow-2xl p-8 text-center animate-fade-in border border-slate-700">
-            <div class="text-6xl mb-6 animate-bounce-slight">🌿</div>
-            <h1 class="text-4xl font-extrabold text-white mb-4 tracking-tight">Ecology <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">Master Quiz</span></h1>
-            <p class="text-slate-400 text-lg mb-8 leading-relaxed">
-                Hey there! 👋 Ready to test your knowledge about the biosphere, energy flows, and how organisms interact? <br><br>
-                There are <strong>25 questions</strong> in total. Let's see if you can reach the highest rank!
-            </p>
-            <button onclick="startQuiz()" class="bg-gradient-to-r from-brand-primary to-emerald-400 text-white font-bold py-4 px-10 rounded-full text-xl hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all duration-300 transform hover:-translate-y-1">
-                Start the Quiz 🚀
-            </button>
-        </div>
-
-        <!-- Quiz Screen -->
-        <div id="quiz-screen" class="bg-brand-card rounded-3xl shadow-2xl p-6 sm:p-10 hide border border-slate-700">
-            
-            <!-- Progress Bar -->
-            <div class="mb-8">
-                <div class="flex justify-between text-sm font-semibold text-slate-400 mb-2">
-                    <span id="question-tracker">Question 1 of 25</span>
-                    <span id="score-tracker" class="text-brand-primary">Score: 0</span>
-                </div>
-                <div class="w-full bg-slate-800 rounded-full h-3">
-                    <div id="progress-bar" class="bg-gradient-to-r from-brand-secondary to-brand-primary h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
-                </div>
-            </div>
-
-            <!-- Question Area -->
-            <div id="question-container" class="animate-fade-in">
-                <h2 id="question-text" class="text-2xl sm:text-3xl font-bold text-white mb-6 leading-tight">
-                    Question text goes here?
-                </h2>
-                
-                <!-- Options -->
-                <div id="options-container" class="flex flex-col space-y-4">
-                    <!-- Buttons injected via JS -->
-                </div>
-            </div>
-
-            <!-- Next Button -->
-            <div class="mt-8 flex justify-end hide" id="next-btn-container">
-                <button onclick="nextQuestion()" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-8 rounded-xl transition-colors duration-200 flex items-center">
-                    Next Question <span class="ml-2">➔</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Result Screen -->
-        <div id="result-screen" class="bg-brand-card rounded-3xl shadow-2xl p-8 text-center hide border border-slate-700">
-            <div id="result-emoji" class="text-7xl mb-6 animate-bounce-slight">🏆</div>
-            <h2 class="text-3xl font-bold text-white mb-2">Quiz Completed!</h2>
-            <p class="text-slate-400 text-lg mb-6">Here is how you did:</p>
-            
-            <div class="bg-slate-800 rounded-2xl p-6 mb-8 inline-block w-full sm:w-auto sm:min-w-[300px]">
-                <div class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary mb-2" id="final-score">
-                    0 / 25
-                </div>
-                <div class="text-xl font-bold text-white" id="rank-text">
-                    Rank: Eco-Warrior 🌍
-                </div>
-            </div>
-
-            <p id="result-message" class="text-slate-300 mb-8 max-w-md mx-auto leading-relaxed">
-                Great job! You know your ecology pretty well.
-            </p>
-
-            <button onclick="restartQuiz()" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 px-10 rounded-full text-lg transition-all duration-300">
-                Play Again 🔄
-            </button>
-        </div>
-
+<div class="container">
+    <h1>🧠 Sensory Organs Master Quiz</h1>
+    <p class="subtitle">Comprehensive 30-Minute Review (Challenging Level)</p>
+    
+    <div class="instructions">
+        <strong>Instructions:</strong> Take your time reading through each task. This test includes multiple-choice questions, interactive diagrams, text gap-filling, and drag-and-drop matching. Click the "Verify My Answers!" button at the very bottom when you are finished.
     </div>
 
-    <!-- Application Logic -->
-    <script>
-        // Quiz Data based on the uploaded Hungarian Ecology materials
-        const quizData = [
-            // Original 10 Questions
-            {
-                question: "Why do desert foxes (like the Fennec fox) have much larger ears than arctic foxes?",
-                options: [
-                    "To hear predators from miles away.",
-                    "To help release body heat into the air (Allen's Rule).",
-                    "To store extra water for dry days.",
-                    "To fly short distances to escape danger."
-                ],
-                correctIndex: 1,
-                explanation: "According to Allen's Rule, animals in warmer climates have larger appendages (like ears) to help dissipate heat."
-            },
-            {
-                question: "How does energy move through an ecosystem?",
-                options: [
-                    "It flows in a continuous cycle, just like water and carbon.",
-                    "It is created by plants out of nothing.",
-                    "It flows in ONE direction: from the Sun, to producers, then to consumers.",
-                    "It moves backwards from predators down to the plants."
-                ],
-                correctIndex: 2,
-                explanation: "Energy flow is a one-way street! Unlike matter (which cycles), energy enters as sunlight and eventually dissipates as heat."
-            },
-            {
-                question: "Which organisms are known as excellent natural 'indicators' of sulfur-dioxide (SO₂) air pollution?",
-                options: [
-                    "Lichens (zuzmók)",
-                    "Oak trees (tölgyfák)",
-                    "Tapeworms (galandférgek)",
-                    "Water fleas (ágascsápú rákok)"
-                ],
-                correctIndex: 0,
-                explanation: "Lichens are very sensitive to air quality, particularly sulfur-dioxide. If the air is highly polluted, lichens will disappear from the area."
-            },
-            {
-                question: "Aphids (levéltetvek) reproduce very quickly, have many offspring, and live short lives. What kind of ecological strategy is this?",
-                options: [
-                    "K-strategy",
-                    "Alpha-strategy",
-                    "Omega-strategy",
-                    "r-strategy"
-                ],
-                correctIndex: 3,
-                explanation: "r-strategists focus on rapid reproduction and many offspring, while K-strategists (like humans or elephants) have few offspring but care for them longer."
-            },
-            {
-                question: "An oak tree (tölgy) and a hornbeam (gyertyán) in a forest are both trying to reach the sunlight. What is this interaction called?",
-                options: [
-                    "Mutualism (+, +)",
-                    "Parasitism (+, -)",
-                    "Competition (versengés) (-, -)",
-                    "Predation (+, -)"
-                ],
-                correctIndex: 2,
-                explanation: "When two different species need the same limited resource (like sunlight), they compete for it."
-            },
-            {
-                question: "Which biological process actively DECREASES the amount of carbon dioxide (CO₂) in the atmosphere?",
-                options: [
-                    "Animal respiration (légzés)",
-                    "Burning fossil fuels",
-                    "Decomposition of organic matter",
-                    "Photosynthesis (fotoszintézis)"
-                ],
-                correctIndex: 3,
-                explanation: "Plants take in CO₂ from the air during photosynthesis to build organic materials (sugars)."
-            },
-            {
-                question: "What is the main cause of 'acid rain' (savas eső)?",
-                options: [
-                    "Sulfur dioxide (SO₂) and nitrogen oxides from factories mixing with water vapor.",
-                    "Too much oxygen in the atmosphere.",
-                    "Oil spills in the ocean evaporating into the clouds.",
-                    "High concentrations of plastic waste breaking down."
-                ],
-                correctIndex: 0,
-                explanation: "These gases react with water in the atmosphere to form acids, which then fall back to Earth as acid rain, harming forests and lakes."
-            },
-            {
-                question: "A group of deer (szarvasok) living together in the Gemenc forest at the same time belongs to which level of organization?",
-                options: [
-                    "Biosphere",
-                    "Community (társulás)",
-                    "Population (populáció)",
-                    "Ecosystem"
-                ],
-                correctIndex: 2,
-                explanation: "A population consists of individuals of the SAME species living in the same area at the same time."
-            },
-            {
-                question: "According to Bergmann's Rule, animals of related species living in colder climates (like polar bears) tend to have:",
-                options: [
-                    "Smaller body sizes",
-                    "Larger body sizes",
-                    "Longer legs",
-                    "Green fur for camouflage"
-                ],
-                correctIndex: 1,
-                explanation: "A larger body mass is more efficient for heat production and retention in cold climates."
-            },
-            {
-                question: "What do we call the gradual, long-term process where a community changes over time (e.g., a bare rock slowly turning into a mature forest)?",
-                options: [
-                    "Succession (szukcesszió)",
-                    "Aspect (aszpektus)",
-                    "Eutrophication",
-                    "Photosynthesis"
-                ],
-                correctIndex: 0,
-                explanation: "Succession is the ecological process of change in the species structure of an ecological community over time."
-            },
+    <form id="quiz-form">
+        
+        <!-- SECTION 1: MULTIPLE CHOICE -->
+        <h2 class="section-title">Part 1: Auditory Mechanics & Physiology</h2>
+
+        <div class="question-block" id="task1">
+            <div class="question-text">Task 1: During the hearing process, which specific structure is responsible for transmitting mechanical vibrations directly to the fluid inside the inner ear via the oval window?</div>
+            <div class="options">
+                <label><input type="radio" name="t1" value="A"> A) The Tympanic membrane</label>
+                <label><input type="radio" name="t1" value="B"> B) The Basilar membrane</label>
+                <label><input type="radio" name="t1" value="C"> C) The Stapes (stirrup)</label>
+                <label><input type="radio" name="t1" value="D"> D) The Malleus (hammer)</label>
+            </div>
+            <span class="feedback-icon" id="f-t1"></span>
+        </div>
+
+        <div class="question-block" id="task2">
+            <div class="question-text">Task 2: The Organ of Corti is the true sensory organ of hearing. Where is it located, and what is its primary structural mechanism?</div>
+            <div class="options">
+                <label><input type="radio" name="t2" value="A"> A) It rests on the basilar membrane and contains hair cells that trigger electrical impulses.</label>
+                <label><input type="radio" name="t2" value="B"> B) It is located in the middle ear and amplifies vibrations before they reach the cochlea.</label>
+                <label><input type="radio" name="t2" value="C"> C) It is part of the utricle and uses otoliths to generate action potentials.</label>
+                <label><input type="radio" name="t2" value="D"> D) It lines the external auditory canal and traps sound waves to funnel them inward.</label>
+            </div>
+            <span class="feedback-icon" id="f-t2"></span>
+        </div>
+
+        <div class="question-block" id="task3">
+            <div class="question-text">Task 3: How does the cochlea physically differentiate between varying sound frequencies?</div>
+            <div class="options">
+                <label><input type="radio" name="t3" value="A"> A) High-frequency sounds are detected near the apex, and low-frequency sounds near the base.</label>
+                <label><input type="radio" name="t3" value="B"> B) High-frequency sounds are detected near the base, and low-frequency sounds near the apex.</label>
+                <label><input type="radio" name="t3" value="C"> C) The semicircular canals filter the frequencies before they enter the cochlea.</label>
+                <label><input type="radio" name="t3" value="D"> D) Hair cells change their shape dynamically depending on the speed of the sound wave.</label>
+            </div>
+            <span class="feedback-icon" id="f-t3"></span>
+        </div>
+
+
+        <!-- SECTION 2: DIAGRAM -->
+        <h2 class="section-title">Part 2: Visual Anatomy</h2>
+        
+        <div class="question-block" id="task4">
+            <div class="question-text">Task 4: Identify the structures of the Ear. Select the correct label for each region of the diagram.</div>
             
-            // 15 New Questions
-            {
-                question: "Some species, like certain corals, can only survive in a very specific temperature range. What do ecologists call these species?",
-                options: [
-                    "Broad-tolerance species (tágtűrésű fajok)",
-                    "Narrow-tolerance species (szűktűrésű fajok)",
-                    "Invincible species",
-                    "Pioneer species"
-                ],
-                correctIndex: 1,
-                explanation: "Species that can only survive within a narrow range of environmental conditions are called narrow-tolerance (szűktűrésű) species."
-            },
-            {
-                question: "The air we breathe is mostly made of which gas?",
-                options: [
-                    "Oxygen (21%)",
-                    "Carbon dioxide (0.04%)",
-                    "Nitrogen (78%)",
-                    "Hydrogen (1%)"
-                ],
-                correctIndex: 2,
-                explanation: "The Earth's atmosphere is mostly Nitrogen (78%), followed by Oxygen (21%). Neither limits life, unlike the tiny amount of CO2 which is vital for photosynthesis."
-            },
-            {
-                question: "In a temperate deciduous forest (lombhullató erdő), plants grow in different layers (canopy, shrub, herb layer). What is the main environmental factor that drives this layering (szintezettség)?",
-                options: [
-                    "Wind speed",
-                    "Light availability (fény)",
-                    "Soil pH",
-                    "Predator numbers"
-                ],
-                correctIndex: 1,
-                explanation: "Plants compete for sunlight. Taller trees capture the most direct light, while shrubs and herbs below must adapt to living in the shade (szórt fény)."
-            },
-            {
-                question: "In an ecosystem, fungi and bacteria break down dead organic matter and return nutrients to the soil. What is their ecological role?",
-                options: [
-                    "Producers (termelők)",
-                    "Primary consumers (elsődleges fogyasztók)",
-                    "Decomposers (lebontók)",
-                    "Top predators (csúcsragadozók)"
-                ],
-                correctIndex: 2,
-                explanation: "Decomposers (lebontók) play a crucial role by breaking down dead organisms and recycling their materials back into the soil for plants to use."
-            },
-            {
-                question: "Frogs and snakes often enter a resting state (dormancy) during winter. Why do they do this?",
-                options: [
-                    "They are endotherms (állandó testhőmérsékletűek) and need to save fat.",
-                    "They are ectotherms (változó testhőmérsékletűek) and their body temperature drops with the environment.",
-                    "They are hiding from winter migrating birds.",
-                    "They are waiting for their fur to grow back."
-                ],
-                correctIndex: 1,
-                explanation: "Amphibians and reptiles are ectotherms. They rely on the environment's heat. When it gets cold, their metabolism slows down dramatically."
-            },
-            {
-                question: "If a rabbit population has unlimited food and no predators, it will grow exponentially. However, in reality, growth eventually stops. What limits it?",
-                options: [
-                    "The animals get bored of reproducing.",
-                    "The environment's carrying capacity (eltartóképesség).",
-                    "The ozone layer.",
-                    "Succession."
-                ],
-                correctIndex: 1,
-                explanation: "Every environment has a limit to how many individuals it can support based on available resources, known as its carrying capacity (eltartóképesség)."
-            },
-            {
-                question: "Plants need nitrogen to grow, but they can't use the nitrogen gas (N₂) straight from the air. How do they get it?",
-                options: [
-                    "They absorb it through their leaves when it rains.",
-                    "Nitrogen-fixing bacteria (nitrogéngyűjtő baktériumok) in the soil or roots convert it into a usable form.",
-                    "They eat small insects.",
-                    "They produce it during photosynthesis."
-                ],
-                correctIndex: 1,
-                explanation: "Special bacteria, often living in the root nodules of plants like beans or alfalfa, capture atmospheric nitrogen and turn it into nutrients the plant can absorb."
-            },
-            {
-                question: "When too much fertilizer (műtrágya) washes into a lake, algae grow out of control. When they die, the water loses its oxygen, killing the fish. What is this called?",
-                options: [
-                    "Succession",
-                    "Biomagnification",
-                    "Eutrophication (eutrofizáció)",
-                    "Nitrification"
-                ],
-                correctIndex: 2,
-                explanation: "Eutrophication happens when excess nutrients enter a water body, causing algal blooms that deplete oxygen levels when bacteria decompose them."
-            },
-            {
-                question: "A tapeworm (galandféreg) living inside a mammal's intestine gets food while harming the host. What type of interaction is this?",
-                options: [
-                    "Mutualism (+, +)",
-                    "Competition (-, -)",
-                    "Commensalism (+, 0)",
-                    "Parasitism (+, -)"
-                ],
-                correctIndex: 3,
-                explanation: "In parasitism (élősködés), one organism benefits (the parasite) while the other is harmed (the host)."
-            },
-            {
-                question: "How does physical weathering (fizikai aprózódás) help create soil from solid rock?",
-                options: [
-                    "Water freezes in rock cracks and expands, breaking the rock apart.",
-                    "Acid rain melts the rock into mud.",
-                    "Plant roots release acids that dissolve the rock.",
-                    "Worms eat the rock and excrete soil."
-                ],
-                correctIndex: 0,
-                explanation: "Physical weathering often happens when daily temperature changes or freezing water expand and crack the rocks into smaller pieces, the first step of soil formation."
-            },
-            {
-                question: "Why are top predators (like eagles) more affected by certain toxic pesticides (e.g., DDT) than the insects that originally ate the poisoned plants?",
-                options: [
-                    "Eagles have weaker immune systems.",
-                    "The toxins concentrate as they move up the food chain (felhalmozódás).",
-                    "Eagles intentionally eat the poison.",
-                    "The pesticide reacts with their feathers."
-                ],
-                correctIndex: 1,
-                explanation: "Toxins that don't break down easily accumulate in fatty tissues. As predators eat many contaminated prey items, the toxin concentration gets much higher at the top of the food chain (biological magnification)."
-            },
-            {
-                question: "Which of these makes a species highly vulnerable to extinction?",
-                options: [
-                    "Living in many different habitats worldwide.",
-                    "Being an r-strategist with thousands of offspring.",
-                    "Living only in one specific, isolated habitat (endemic species).",
-                    "Having a broad tolerance (tágtűrésű) for temperature changes."
-                ],
-                correctIndex: 2,
-                explanation: "Species that only live in one specific place are at high risk. If that single habitat is destroyed (e.g., by deforestation), the species has nowhere else to go."
-            },
-            {
-                question: "If you see a flock of ducks swimming together on a lake, but the rest of the lake is empty, what kind of spatial distribution (térbeli eloszlás) is this?",
-                options: [
-                    "Uniform (egyenletes)",
-                    "Random (véletlenszerű)",
-                    "Clumped / Grouped (halmazos)",
-                    "Layered (szintezett)"
-                ],
-                correctIndex: 2,
-                explanation: "Most animals, including herds of deer or flocks of birds, show a clumped (halmazos) distribution because they gather around resources or for social/protective reasons."
-            },
-            {
-                question: "What sits at the very base of an ecological pyramid (ökológiai piramis)?",
-                options: [
-                    "Top predators (csúcsragadozók)",
-                    "Decomposers (lebontók)",
-                    "Producers (termelők, pl. zöld növények)",
-                    "Primary consumers (növényevők)"
-                ],
-                correctIndex: 2,
-                explanation: "Producers, primarily photosynthetic plants and algae, form the base of the food web and the ecological pyramid, providing energy (biomass) for all other levels."
-            },
-            {
-                question: "Why is an oil spill in the ocean so dangerous for marine birds?",
-                options: [
-                    "It makes the fish taste bad.",
-                    "The oil coats their feathers, destroying their waterproof insulation.",
-                    "The birds become too heavy and sink to the bottom immediately.",
-                    "The oil catches fire easily in the sun."
-                ],
-                correctIndex: 1,
-                explanation: "Oil destroys the waterproofing and insulating properties of a bird's feathers, leading to hypothermia and making it impossible for them to fly or hunt."
-            }
-        ];
+            <div class="diagram-container">
+                <!-- A highly stylized schematic SVG of the Ear -->
+                <svg class="diagram-img" viewBox="0 0 600 350" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="600" height="350" fill="#f8fdff"/>
+                    <!-- Pinna -->
+                    <path d="M 120,80 C 40,50 10,220 80,300 C 120,340 160,300 160,250 C 160,200 130,200 130,170" fill="#fbd1b7" stroke="#e0a98b" stroke-width="4"/>
+                    <!-- Auditory Canal -->
+                    <rect x="140" y="165" width="130" height="40" fill="#fbd1b7" stroke="#e0a98b" stroke-width="4"/>
+                    <!-- Eardrum -->
+                    <ellipse cx="270" cy="185" rx="8" ry="35" fill="#ffb6c1" stroke="#ff6b6b" stroke-width="3"/>
+                    <!-- Ossicles (Middle Ear) -->
+                    <path d="M 278,180 L 295,165 L 310,185 L 325,185" fill="none" stroke="#a0a0a0" stroke-width="6" stroke-linejoin="round"/>
+                    <circle cx="328" cy="185" r="5" fill="#a0a0a0"/>
+                    <!-- Semicircular Canals -->
+                    <path d="M 340,170 C 320,110 380,110 370,165" fill="none" stroke="#add8e6" stroke-width="8"/>
+                    <path d="M 350,170 C 350,100 420,130 380,180" fill="none" stroke="#add8e6" stroke-width="8"/>
+                    <path d="M 370,180 C 410,180 410,210 380,200" fill="none" stroke="#add8e6" stroke-width="8"/>
+                    <!-- Cochlea -->
+                    <path d="M 345,200 C 345,250 410,260 410,210 C 410,170 365,170 365,210 C 365,230 390,230 390,210" fill="none" stroke="#87ceeb" stroke-width="14" stroke-linecap="round"/>
+                    
+                    <!-- Pointer Lines -->
+                    <line x1="90" y1="120" x2="160" y2="60" stroke="#666" stroke-width="2" stroke-dasharray="4"/>
+                    <line x1="200" y1="205" x2="200" y2="280" stroke="#666" stroke-width="2" stroke-dasharray="4"/>
+                    <line x1="270" y1="150" x2="270" y2="80" stroke="#666" stroke-width="2" stroke-dasharray="4"/>
+                    <line x1="305" y1="175" x2="350" y2="80" stroke="#666" stroke-width="2" stroke-dasharray="4"/>
+                    <line x1="380" y1="130" x2="480" y2="80" stroke="#666" stroke-width="2" stroke-dasharray="4"/>
+                    <line x1="380" y1="220" x2="480" y2="280" stroke="#666" stroke-width="2" stroke-dasharray="4"/>
+                </svg>
 
-        // State variables
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let answered = false;
+                <!-- Dropdowns positioned over the SVG -->
+                <!-- Pinna Label -->
+                <select id="diag1" class="diagram-select" style="top: 15%; left: 30%;">
+                    <option value="" disabled selected>-- Label --</option>
+                    <option value="Pinna">Auricle (Pinna)</option>
+                    <option value="Eardrum">Tympanic Membrane</option>
+                    <option value="Ossicles">Auditory Ossicles</option>
+                </select>
+                <span class="feedback-icon" id="f-diag1" style="position: absolute; top: 15%; left: 45%;"></span>
 
-        // DOM Elements
-        const screens = {
-            welcome: document.getElementById('welcome-screen'),
-            quiz: document.getElementById('quiz-screen'),
-            result: document.getElementById('result-screen')
-        };
-        const questionText = document.getElementById('question-text');
-        const optionsContainer = document.getElementById('options-container');
-        const questionTracker = document.getElementById('question-tracker');
-        const scoreTracker = document.getElementById('score-tracker');
-        const progressBar = document.getElementById('progress-bar');
-        const nextBtnContainer = document.getElementById('next-btn-container');
+                <!-- Canal Label -->
+                <select id="diag2" class="diagram-select" style="top: 85%; left: 33%;">
+                    <option value="" disabled selected>-- Label --</option>
+                    <option value="Canal">Auditory Canal</option>
+                    <option value="Cochlea">Cochlea</option>
+                    <option value="Eardrum">Tympanic Membrane</option>
+                </select>
+                <span class="feedback-icon" id="f-diag2" style="position: absolute; top: 85%; left: 48%;"></span>
 
-        // Functions
-        function hideAllScreens() {
-            Object.values(screens).forEach(screen => screen.classList.add('hide'));
-        }
+                <!-- Eardrum Label -->
+                <select id="diag3" class="diagram-select" style="top: 20%; left: 45%;">
+                    <option value="" disabled selected>-- Label --</option>
+                    <option value="Ossicles">Auditory Ossicles</option>
+                    <option value="Eardrum">Tympanic Membrane</option>
+                    <option value="Cochlea">Cochlea</option>
+                </select>
+                <span class="feedback-icon" id="f-diag3" style="position: absolute; top: 20%; left: 62%;"></span>
 
-        function startQuiz() {
-            hideAllScreens();
-            screens.quiz.classList.remove('hide');
-            currentQuestionIndex = 0;
-            score = 0;
-            updateUI();
-            loadQuestion();
-        }
+                <!-- Ossicles Label -->
+                <select id="diag4" class="diagram-select" style="top: 20%; left: 65%;">
+                    <option value="" disabled selected>-- Label --</option>
+                    <option value="Semicircular">Semicircular Canals</option>
+                    <option value="Ossicles">Auditory Ossicles</option>
+                    <option value="Canal">Auditory Canal</option>
+                </select>
+                <span class="feedback-icon" id="f-diag4" style="position: absolute; top: 20%; left: 81%;"></span>
 
-        function updateUI() {
-            questionTracker.textContent = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
-            scoreTracker.textContent = `Score: ${score}`;
-            const progress = ((currentQuestionIndex) / quizData.length) * 100;
-            progressBar.style.width = `${progress}%`;
-        }
+                <!-- Semicircular Canals Label -->
+                <select id="diag5" class="diagram-select" style="top: 20%; left: 85%;">
+                    <option value="" disabled selected>-- Label --</option>
+                    <option value="Semicircular">Semicircular Canals</option>
+                    <option value="Cochlea">Cochlea</option>
+                    <option value="Pinna">Auricle</option>
+                </select>
+                <span class="feedback-icon" id="f-diag5" style="position: absolute; top: 20%; left: 98%;"></span>
 
-        function loadQuestion() {
-            // Reset state
-            answered = false;
-            nextBtnContainer.classList.add('hide');
-            optionsContainer.innerHTML = '';
+                <!-- Cochlea Label -->
+                <select id="diag6" class="diagram-select" style="top: 85%; left: 85%;">
+                    <option value="" disabled selected>-- Label --</option>
+                    <option value="Cochlea">Cochlea</option>
+                    <option value="Semicircular">Semicircular Canals</option>
+                    <option value="Eardrum">Tympanic Membrane</option>
+                </select>
+                <span class="feedback-icon" id="f-diag6" style="position: absolute; top: 85%; left: 98%;"></span>
+            </div>
+        </div>
+
+        <!-- SECTION 3: GAP FILLING -->
+        <h2 class="section-title">Part 3: Pathways & Physiological Functions</h2>
+        
+        <div class="question-block" id="task5">
+            <div class="question-text">Task 5: The Auditory Pathway</div>
+            <div class="gap-text">
+                Sound waves are collected by the outer ear and travel down the 
+                <select id="gap1">
+                    <option value="" disabled selected>-- Select --</option>
+                    <option value="auditory canal">auditory canal</option>
+                    <option value="eustachian tube">eustachian tube</option>
+                    <option value="cochlear duct">cochlear duct</option>
+                </select>
+                <span id="f-gap1"></span>
+                until they hit the tympanic membrane. The vibrations are then mechanically amplified by three tiny bones in the middle ear called the 
+                <select id="gap2">
+                    <option value="" disabled selected>-- Select --</option>
+                    <option value="otoliths">otoliths</option>
+                    <option value="ossicles">ossicles</option>
+                    <option value="hair cells">hair cells</option>
+                </select>.
+                <span id="f-gap2"></span>
+                These bones include the malleus, incus, and stapes.
+            </div>
+        </div>
+
+        <div class="question-block" id="task6">
+            <div class="question-text">Task 6: Balance Perception</div>
+            <div class="gap-text">
+                The inner ear contains a complex fluid-filled labyrinth vital for balance. The 
+                <select id="gap3">
+                    <option value="" disabled selected>-- Select --</option>
+                    <option value="utricle and saccule">utricle and saccule</option>
+                    <option value="semicircular canals">semicircular canals</option>
+                    <option value="tympanic membrane">tympanic membrane</option>
+                </select>
+                <span id="f-gap3"></span>
+                are primarily responsible for detecting dynamic head movement (rotation), whereas the 
+                <select id="gap4">
+                    <option value="" disabled selected>-- Select --</option>
+                    <option value="utricle and saccule">utricle and saccule</option>
+                    <option value="semicircular canals">semicircular canals</option>
+                    <option value="auditory ossicles">auditory ossicles</option>
+                </select>
+                <span id="f-gap4"></span>
+                detect static head position in relation to gravity. These position receptors are uniquely stimulated by the weight of calcium carbonate crystals known as 
+                <select id="gap5">
+                    <option value="" disabled selected>-- Select --</option>
+                    <option value="ossicles">ossicles</option>
+                    <option value="otoliths">otoliths</option>
+                    <option value="hair cells">hair cells</option>
+                </select>.
+                <span id="f-gap5"></span>
+            </div>
+        </div>
+
+        <div class="question-block" id="task7">
+            <div class="question-text">Task 7: The Chemical Senses (Taste & Smell)</div>
+            <div class="gap-text">
+                Taste receptors are located in the 
+                <select id="gap6">
+                    <option value="" disabled selected>-- Select --</option>
+                    <option value="tongue grooves">tongue grooves</option>
+                    <option value="hard palate">hard palate</option>
+                    <option value="salivary glands">salivary glands</option>
+                </select>
+                <span id="f-gap6"></span>, 
+                detecting four primary tastes: sweet, salty, bitter, and sour. For the sense of smell to function, inhaled odorants must first dissolve in 
+                <select id="gap7">
+                    <option value="" disabled selected>-- Select --</option>
+                    <option value="blood plasma">blood plasma</option>
+                    <option value="mucus">mucus</option>
+                    <option value="saliva">saliva</option>
+                </select>
+                <span id="f-gap7"></span>
+                within the nasal cavity. A distinct feature of olfactory receptors is that they undergo rapid 
+                <select id="gap8">
+                    <option value="" disabled selected>-- Select --</option>
+                    <option value="regeneration">regeneration</option>
+                    <option value="adaptation">adaptation</option>
+                    <option value="amplification">amplification</option>
+                </select>,
+                <span id="f-gap8"></span>
+                meaning you quickly stop noticing a continuous smell.
+            </div>
+        </div>
+
+        <!-- SECTION 4: DRAG AND DROP -->
+        <h2 class="section-title">Part 4: Matching Mechanisms</h2>
+
+        <div class="question-block" id="task8">
+            <div class="question-text">Task 8: Senses of the Skin. Match the receptor type to its physiological function. <br><span style="font-size: 0.9rem; font-weight: normal; color: #666;">(Click an item in the blue box to select it, then click the dashed box where it belongs. Or drag and drop.)</span></div>
             
-            // Re-trigger animation
-            const qContainer = document.getElementById('question-container');
-            qContainer.classList.remove('animate-fade-in');
-            void qContainer.offsetWidth; // trigger reflow
-            qContainer.classList.add('animate-fade-in');
+            <div class="dnd-wrapper">
+                <!-- Draggables Pool -->
+                <div class="draggables-container" id="pool-skin">
+                    <div class="draggable-item" draggable="true" id="d-mech">Mechanical receptors</div>
+                    <div class="draggable-item" draggable="true" id="d-free">Free nerve endings</div>
+                    <div class="draggable-item" draggable="true" id="d-therm">Thermoceptors</div>
+                </div>
 
-            const currentData = quizData[currentQuestionIndex];
-            questionText.textContent = currentData.question;
+                <!-- Drop Zones -->
+                <div class="drop-zones-container">
+                    <div class="drop-zone-row">
+                        <div class="drop-zone-text">1. Detects tissue damage (Pain Sensation):</div>
+                        <div class="drop-zone-target" data-answer="d-free"></div>
+                        <span class="feedback-icon f-dnd"></span>
+                    </div>
+                    <div class="drop-zone-row">
+                        <div class="drop-zone-text">2. Detects touch and deep pressure:</div>
+                        <div class="drop-zone-target" data-answer="d-mech"></div>
+                        <span class="feedback-icon f-dnd"></span>
+                    </div>
+                    <div class="drop-zone-row">
+                        <div class="drop-zone-text">3. Detects changes in temperature (not absolute temp):</div>
+                        <div class="drop-zone-target" data-answer="d-therm"></div>
+                        <span class="feedback-icon f-dnd"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            currentData.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.className = 'btn-option w-full text-left bg-slate-800 border-2 border-slate-700 hover:border-brand-primary text-slate-200 font-medium py-4 px-6 rounded-xl text-lg';
-                button.innerHTML = `<span class="inline-block w-8 font-bold text-slate-400">${String.fromCharCode(65 + index)}.</span> ${option}`;
-                button.onclick = () => selectAnswer(index, button);
-                optionsContainer.appendChild(button);
-            });
+        <div class="question-block" id="task9">
+            <div class="question-text">Task 9: Hungarian Contributions to Science. Match the scientist to their Nobel Prize-winning discovery.</div>
             
-            updateUI();
-        }
+            <div class="dnd-wrapper">
+                <!-- Draggables Pool -->
+                <div class="draggables-container" id="pool-sci">
+                    <div class="draggable-item" draggable="true" id="d-barany">Róbert Bárány</div>
+                    <div class="draggable-item" draggable="true" id="d-bekesy">György Békésy</div>
+                </div>
 
-        function selectAnswer(selectedIndex, selectedButton) {
-            if (answered) return;
-            answered = true;
+                <!-- Drop Zones -->
+                <div class="drop-zones-container">
+                    <div class="drop-zone-row">
+                        <div class="drop-zone-text">1. Nobel Prize (1961) for research on Cochlear mechanics and auditory processes:</div>
+                        <div class="drop-zone-target" data-answer="d-bekesy"></div>
+                        <span class="feedback-icon f-dnd"></span>
+                    </div>
+                    <div class="drop-zone-row">
+                        <div class="drop-zone-text">2. Nobel Prize (1914) for research regarding the balance organ:</div>
+                        <div class="drop-zone-target" data-answer="d-barany"></div>
+                        <span class="feedback-icon f-dnd"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            const currentData = quizData[currentQuestionIndex];
-            const isCorrect = selectedIndex === currentData.correctIndex;
+        <!-- SECTION 5: TRUE / FALSE -->
+        <h2 class="section-title">Part 5: True or False Integration</h2>
 
-            const allButtons = optionsContainer.querySelectorAll('button');
-            
-            allButtons.forEach((btn, index) => {
-                btn.classList.add('disabled');
-                btn.disabled = true;
-                
-                if (index === currentData.correctIndex) {
-                    btn.classList.add('correct');
-                } else if (index === selectedIndex && !isCorrect) {
-                    btn.classList.add('incorrect');
+        <div class="question-block" id="task10">
+            <div class="question-text">Task 10: The human hearing range spans from 16 Hz to 20,000 Hz. Prolonged exposure to noise levels of 70-80 dB or higher can cause nervous system damage and permanent hearing loss.</div>
+            <div class="options">
+                <label><input type="radio" name="t10" value="True"> True</label>
+                <label><input type="radio" name="t10" value="False"> False</label>
+            </div>
+            <span class="feedback-icon" id="f-t10"></span>
+        </div>
+
+        <div class="question-block" id="task11">
+            <div class="question-text">Task 11: Receptors for warmth and cold are evenly distributed across the entire surface of the human body to ensure accurate temperature sensing everywhere.</div>
+            <div class="options">
+                <label><input type="radio" name="t11" value="True"> True</label>
+                <label><input type="radio" name="t11" value="False"> False</label>
+            </div>
+            <span class="feedback-icon" id="f-t11"></span>
+        </div>
+
+        <div class="question-block" id="task12">
+            <div class="question-text">Task 12: Internal organ receptors are capable of sensing factors such as blood pressure, chemical composition of blood, and stomach fullness.</div>
+            <div class="options">
+                <label><input type="radio" name="t12" value="True"> True</label>
+                <label><input type="radio" name="t12" value="False"> False</label>
+            </div>
+            <span class="feedback-icon" id="f-t12"></span>
+        </div>
+
+        <div class="question-block" id="task13">
+            <div class="question-text">Task 13: When you experience muscle pain after severe exertion, it is most often caused by physical tearing of the free nerve endings rather than insufficient blood supply.</div>
+            <div class="options">
+                <label><input type="radio" name="t13" value="True"> True</label>
+                <label><input type="radio" name="t13" value="False"> False</label>
+            </div>
+            <span class="feedback-icon" id="f-t13"></span>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="checkAnswers()">Verify My Answers!</button>
+    </form>
+
+    <div id="results"></div>
+
+</div>
+
+<script>
+    // --- DRAG AND DROP LOGIC (With Click Fallback for Mobile) ---
+    let selectedDraggable = null;
+
+    const draggables = document.querySelectorAll('.draggable-item');
+    const dropTargets = document.querySelectorAll('.drop-zone-target');
+    const pools = document.querySelectorAll('.draggables-container');
+
+    draggables.forEach(item => {
+        // Drag events
+        item.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', e.target.id);
+            setTimeout(() => e.target.classList.add('dragging'), 0);
+        });
+        item.addEventListener('dragend', (e) => {
+            e.target.classList.remove('dragging');
+        });
+
+        // Click events for fallback
+        item.addEventListener('click', (e) => {
+            if (selectedDraggable) selectedDraggable.classList.remove('selected');
+            selectedDraggable = e.target;
+            selectedDraggable.classList.add('selected');
+        });
+    });
+
+    dropTargets.forEach(target => {
+        // Drag events
+        target.addEventListener('dragover', e => {
+            e.preventDefault();
+            target.classList.add('drag-over');
+        });
+        target.addEventListener('dragleave', e => {
+            target.classList.remove('drag-over');
+        });
+        target.addEventListener('drop', e => {
+            e.preventDefault();
+            target.classList.remove('drag-over');
+            const id = e.dataTransfer.getData('text/plain');
+            const draggableElement = document.getElementById(id);
+            if (draggableElement) {
+                // If there is already an item here, move it back to its pool
+                if (target.children.length > 0) {
+                    const existingItem = target.children[0];
+                    const originPool = document.getElementById(existingItem.id.startsWith('d-mech') || existingItem.id.startsWith('d-free') || existingItem.id.startsWith('d-therm') ? 'pool-skin' : 'pool-sci');
+                    originPool.appendChild(existingItem);
                 }
-            });
-
-            if (isCorrect) {
-                score++;
-                scoreTracker.textContent = `Score: ${score}`;
+                target.appendChild(draggableElement);
             }
+        });
 
-            // Append explanation below options
-            const expDiv = document.createElement('div');
-            expDiv.className = `mt-4 p-4 rounded-xl text-sm font-medium animate-fade-in ${isCorrect ? 'bg-emerald-900/40 text-emerald-200 border border-emerald-800' : 'bg-red-900/40 text-red-200 border border-red-800'}`;
-            expDiv.innerHTML = `<strong>${isCorrect ? 'Correct! 🎉' : 'Oops! 😬'}</strong> <br> ${currentData.explanation}`;
-            optionsContainer.appendChild(expDiv);
+        // Click events for fallback
+        target.addEventListener('click', (e) => {
+            if (selectedDraggable) {
+                // If there is already an item here, move it back
+                if (target.children.length > 0) {
+                    const existingItem = target.children[0];
+                    const originPool = document.getElementById(existingItem.id.startsWith('d-mech') || existingItem.id.startsWith('d-free') || existingItem.id.startsWith('d-therm') ? 'pool-skin' : 'pool-sci');
+                    originPool.appendChild(existingItem);
+                }
+                target.appendChild(selectedDraggable);
+                selectedDraggable.classList.remove('selected');
+                selectedDraggable = null;
+            } else if (target.children.length > 0) {
+                // Click existing item to send it back to pool
+                const existingItem = target.children[0];
+                const originPool = document.getElementById(existingItem.id.startsWith('d-mech') || existingItem.id.startsWith('d-free') || existingItem.id.startsWith('d-therm') ? 'pool-skin' : 'pool-sci');
+                originPool.appendChild(existingItem);
+            }
+        });
+    });
 
-            nextBtnContainer.classList.remove('hide');
-        }
+    // --- GRADING LOGIC ---
+    const correctAnswers = {
+        // Part 1: Radio
+        t1: 'C',
+        t2: 'A',
+        t3: 'B',
+        // Part 2: Diagram (Dropdowns)
+        diag1: 'Pinna',
+        diag2: 'Canal',
+        diag3: 'Eardrum',
+        diag4: 'Ossicles',
+        diag5: 'Semicircular',
+        diag6: 'Cochlea',
+        // Part 3: Gaps
+        gap1: 'auditory canal',
+        gap2: 'ossicles',
+        gap3: 'semicircular canals',
+        gap4: 'utricle and saccule',
+        gap5: 'otoliths',
+        gap6: 'tongue grooves',
+        gap7: 'mucus',
+        gap8: 'adaptation',
+        // Part 5: Radio
+        t10: 'True',
+        t11: 'False', // Uneven distribution
+        t12: 'True',
+        t13: 'False'  // Muscle pain caused by insufficient blood supply
+    };
 
-        function nextQuestion() {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < quizData.length) {
-                loadQuestion();
+    function checkAnswers() {
+        let score = 0;
+        let totalQuestions = Object.keys(correctAnswers).length + 5; // +5 for the D&D targets
+
+        // Reset previous visual feedbacks
+        document.querySelectorAll('.feedback-icon').forEach(el => el.innerHTML = '');
+        document.querySelectorAll('select').forEach(el => {
+            el.style.borderColor = 'var(--secondary)';
+            if(el.classList.contains('diagram-select')) {
+                 el.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
             } else {
-                showResults();
+                 el.style.backgroundColor = '#f8f9fa';
             }
-        }
+        });
+        document.querySelectorAll('.drop-zone-target').forEach(el => {
+            el.style.borderColor = '#ccc';
+        });
 
-        function showResults() {
-            hideAllScreens();
-            screens.result.classList.remove('hide');
+        // 1. Check Multiple Choice & True/False
+        const radioQuestions = ['t1', 't2', 't3', 't10', 't11', 't12', 't13'];
+        radioQuestions.forEach(q => {
+            const selected = document.querySelector(`input[name="${q}"]:checked`);
+            const feedbackEl = document.getElementById(`f-${q}`);
             
-            document.getElementById('final-score').textContent = `${score} / ${quizData.length}`;
-            progressBar.style.width = `100%`;
-
-            const rankText = document.getElementById('rank-text');
-            const resultMsg = document.getElementById('result-message');
-            const resultEmoji = document.getElementById('result-emoji');
-
-            const percentage = (score / quizData.length) * 100;
-
-            if (percentage === 100) {
-                rankText.textContent = "Rank: Biosphere Boss 👑";
-                resultMsg.textContent = "Perfect score! You truly understand how nature works. Mother Earth is proud of you!";
-                resultEmoji.textContent = "🌎";
-            } else if (percentage >= 80) {
-                rankText.textContent = "Rank: Eco-Warrior 🦅";
-                resultMsg.textContent = "Awesome job! You have a great grasp of ecological concepts.";
-                resultEmoji.textContent = "🦊";
-            } else if (percentage >= 50) {
-                rankText.textContent = "Rank: Nature Explorer 🔍";
-                resultMsg.textContent = "Good effort! You know the basics, but a quick review of the materials might help you reach the top.";
-                resultEmoji.textContent = "🌱";
+            if (selected) {
+                if (selected.value === correctAnswers[q]) {
+                    score++;
+                    feedbackEl.innerHTML = '✅ Correct';
+                    feedbackEl.className = 'feedback-icon correct-text';
+                } else {
+                    feedbackEl.innerHTML = `❌ Incorrect (Correct: ${correctAnswers[q]})`;
+                    feedbackEl.className = 'feedback-icon incorrect-text';
+                }
             } else {
-                rankText.textContent = "Rank: Sprout 🌱";
-                resultMsg.textContent = "Every big tree starts as a small seed! Read through your notes again and give it another try.";
-                resultEmoji.textContent = "📚";
+                feedbackEl.innerHTML = '⚠️ Required';
+                feedbackEl.className = 'feedback-icon incorrect-text';
             }
+        });
+
+        // 2. Check Gap Filling & Diagram Selects
+        const selectQuestions = ['diag1', 'diag2', 'diag3', 'diag4', 'diag5', 'diag6', 'gap1', 'gap2', 'gap3', 'gap4', 'gap5', 'gap6', 'gap7', 'gap8'];
+        selectQuestions.forEach(g => {
+            const selectEl = document.getElementById(g);
+            const feedbackEl = document.getElementById(`f-${g}`);
+            const selectedVal = selectEl.value;
+
+            if (selectedVal === correctAnswers[g]) {
+                score++;
+                selectEl.style.borderColor = 'var(--correct)';
+                selectEl.style.backgroundColor = '#e8f8f5';
+                feedbackEl.innerHTML = '✅';
+                feedbackEl.className = 'feedback-icon correct-text';
+            } else {
+                selectEl.style.borderColor = 'var(--incorrect)';
+                selectEl.style.backgroundColor = '#ffeef0';
+                feedbackEl.innerHTML = '❌';
+                feedbackEl.className = 'feedback-icon incorrect-text';
+            }
+        });
+
+        // 3. Check Drag and Drop
+        dropTargets.forEach(target => {
+            const expectedAnswer = target.getAttribute('data-answer');
+            const feedbackEl = target.nextElementSibling;
+            
+            if (target.children.length > 0) {
+                const childId = target.children[0].id;
+                if (childId === expectedAnswer) {
+                    score++;
+                    target.style.borderColor = 'var(--correct)';
+                    feedbackEl.innerHTML = '✅';
+                    feedbackEl.className = 'feedback-icon correct-text';
+                } else {
+                    target.style.borderColor = 'var(--incorrect)';
+                    feedbackEl.innerHTML = '❌';
+                    feedbackEl.className = 'feedback-icon incorrect-text';
+                }
+            } else {
+                target.style.borderColor = 'var(--incorrect)';
+                feedbackEl.innerHTML = '⚠️ Empty';
+                feedbackEl.className = 'feedback-icon incorrect-text';
+            }
+        });
+
+        // 4. Display Results
+        const resultsDiv = document.getElementById('results');
+        const percentage = Math.round((score / totalQuestions) * 100);
+        
+        let message = "";
+        let bgColor = "";
+
+        if (percentage === 100) {
+            message = "🏆 Perfect Score! You're a true Biology master!";
+            bgColor = "#d4edda"; // Light green
+            resultsDiv.style.color = "#155724";
+        } else if (percentage >= 80) {
+            message = "🌟 Excellent job! You really know your sensory organs.";
+            bgColor = "#fff3cd"; // Light yellow
+            resultsDiv.style.color = "#856404";
+        } else if (percentage >= 60) {
+            message = "👍 Good effort! Review the incorrect areas and try again.";
+            bgColor = "#cce5ff"; // Light blue
+            resultsDiv.style.color = "#004085";
+        } else {
+            message = "📚 Keep studying! Review your notes on anatomy and function, then try again.";
+            bgColor = "#f8d7da"; // Light red
+            resultsDiv.style.color = "#721c24";
         }
 
-        function restartQuiz() {
-            startQuiz();
-        }
-    </script>
+        resultsDiv.innerHTML = `You scored ${score} out of ${totalQuestions} (${percentage}%)<br><span style="font-size:1.1rem; font-weight:normal; display:block; margin-top:10px;">${message}</span>`;
+        resultsDiv.style.backgroundColor = bgColor;
+        resultsDiv.style.display = "block";
+
+        // Scroll to results
+        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+</script>
+
 </body>
 </html>
