@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecology Master Quiz 🌍</title>
+    <!-- Tailwind CSS for modern, responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0f172a',
+                            card: '#1e293b',
+                            primary: '#10b981', // Emerald green
+                            secondary: '#3b82f6', // Blue
+                            accent: '#8b5cf6', // Purple
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'bounce-slight': 'bounceSlight 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        bounceSlight: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-5px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for smooth transitions */
+        .btn-option {
+            transition: all 0.2s ease;
+        }
+        .btn-option:hover:not(:disabled) {
+            transform: scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .correct {
+            background-color: #10b981 !important; /* Emerald */
+            color: white !important;
+            border-color: #10b981 !important;
+        }
+        .incorrect {
+            background-color: #ef4444 !important; /* Red */
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+        .disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .hide {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-slate-200 min-h-screen font-sans selection:bg-brand-primary selection:text-white flex items-center justify-center p-4">
+
+    <!-- App Container -->
+    <div class="w-full max-w-2xl">
+        
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="bg-brand-card rounded-3xl shadow-2xl p-8 text-center animate-fade-in border border-slate-700">
+            <div class="text-6xl mb-6 animate-bounce-slight">🌿</div>
+            <h1 class="text-4xl font-extrabold text-white mb-4 tracking-tight">Ecology <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">Master Quiz</span></h1>
+            <p class="text-slate-400 text-lg mb-8 leading-relaxed">
+                Hey there! 👋 Ready to test your knowledge about the biosphere, energy flows, and how organisms interact? <br><br>
+                There are <strong>25 questions</strong> in total. Let's see if you can reach the highest rank!
+            </p>
+            <button onclick="startQuiz()" class="bg-gradient-to-r from-brand-primary to-emerald-400 text-white font-bold py-4 px-10 rounded-full text-xl hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all duration-300 transform hover:-translate-y-1">
+                Start the Quiz 🚀
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="bg-brand-card rounded-3xl shadow-2xl p-6 sm:p-10 hide border border-slate-700">
+            
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="flex justify-between text-sm font-semibold text-slate-400 mb-2">
+                    <span id="question-tracker">Question 1 of 25</span>
+                    <span id="score-tracker" class="text-brand-primary">Score: 0</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-3">
+                    <div id="progress-bar" class="bg-gradient-to-r from-brand-secondary to-brand-primary h-3 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <!-- Question Area -->
+            <div id="question-container" class="animate-fade-in">
+                <h2 id="question-text" class="text-2xl sm:text-3xl font-bold text-white mb-6 leading-tight">
+                    Question text goes here?
+                </h2>
+                
+                <!-- Options -->
+                <div id="options-container" class="flex flex-col space-y-4">
+                    <!-- Buttons injected via JS -->
+                </div>
+            </div>
+
+            <!-- Next Button -->
+            <div class="mt-8 flex justify-end hide" id="next-btn-container">
+                <button onclick="nextQuestion()" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-8 rounded-xl transition-colors duration-200 flex items-center">
+                    Next Question <span class="ml-2">➔</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" class="bg-brand-card rounded-3xl shadow-2xl p-8 text-center hide border border-slate-700">
+            <div id="result-emoji" class="text-7xl mb-6 animate-bounce-slight">🏆</div>
+            <h2 class="text-3xl font-bold text-white mb-2">Quiz Completed!</h2>
+            <p class="text-slate-400 text-lg mb-6">Here is how you did:</p>
+            
+            <div class="bg-slate-800 rounded-2xl p-6 mb-8 inline-block w-full sm:w-auto sm:min-w-[300px]">
+                <div class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary mb-2" id="final-score">
+                    0 / 25
+                </div>
+                <div class="text-xl font-bold text-white" id="rank-text">
+                    Rank: Eco-Warrior 🌍
+                </div>
+            </div>
+
+            <p id="result-message" class="text-slate-300 mb-8 max-w-md mx-auto leading-relaxed">
+                Great job! You know your ecology pretty well.
+            </p>
+
+            <button onclick="restartQuiz()" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 px-10 rounded-full text-lg transition-all duration-300">
+                Play Again 🔄
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // Quiz Data based on the uploaded Hungarian Ecology materials
+        const quizData = [
+            // Original 10 Questions
+            {
+                question: "Why do desert foxes (like the Fennec fox) have much larger ears than arctic foxes?",
+                options: [
+                    "To hear predators from miles away.",
+                    "To help release body heat into the air (Allen's Rule).",
+                    "To store extra water for dry days.",
+                    "To fly short distances to escape danger."
+                ],
+                correctIndex: 1,
+                explanation: "According to Allen's Rule, animals in warmer climates have larger appendages (like ears) to help dissipate heat."
+            },
+            {
+                question: "How does energy move through an ecosystem?",
+                options: [
+                    "It flows in a continuous cycle, just like water and carbon.",
+                    "It is created by plants out of nothing.",
+                    "It flows in ONE direction: from the Sun, to producers, then to consumers.",
+                    "It moves backwards from predators down to the plants."
+                ],
+                correctIndex: 2,
+                explanation: "Energy flow is a one-way street! Unlike matter (which cycles), energy enters as sunlight and eventually dissipates as heat."
+            },
+            {
+                question: "Which organisms are known as excellent natural 'indicators' of sulfur-dioxide (SO₂) air pollution?",
+                options: [
+                    "Lichens (zuzmók)",
+                    "Oak trees (tölgyfák)",
+                    "Tapeworms (galandférgek)",
+                    "Water fleas (ágascsápú rákok)"
+                ],
+                correctIndex: 0,
+                explanation: "Lichens are very sensitive to air quality, particularly sulfur-dioxide. If the air is highly polluted, lichens will disappear from the area."
+            },
+            {
+                question: "Aphids (levéltetvek) reproduce very quickly, have many offspring, and live short lives. What kind of ecological strategy is this?",
+                options: [
+                    "K-strategy",
+                    "Alpha-strategy",
+                    "Omega-strategy",
+                    "r-strategy"
+                ],
+                correctIndex: 3,
+                explanation: "r-strategists focus on rapid reproduction and many offspring, while K-strategists (like humans or elephants) have few offspring but care for them longer."
+            },
+            {
+                question: "An oak tree (tölgy) and a hornbeam (gyertyán) in a forest are both trying to reach the sunlight. What is this interaction called?",
+                options: [
+                    "Mutualism (+, +)",
+                    "Parasitism (+, -)",
+                    "Competition (versengés) (-, -)",
+                    "Predation (+, -)"
+                ],
+                correctIndex: 2,
+                explanation: "When two different species need the same limited resource (like sunlight), they compete for it."
+            },
+            {
+                question: "Which biological process actively DECREASES the amount of carbon dioxide (CO₂) in the atmosphere?",
+                options: [
+                    "Animal respiration (légzés)",
+                    "Burning fossil fuels",
+                    "Decomposition of organic matter",
+                    "Photosynthesis (fotoszintézis)"
+                ],
+                correctIndex: 3,
+                explanation: "Plants take in CO₂ from the air during photosynthesis to build organic materials (sugars)."
+            },
+            {
+                question: "What is the main cause of 'acid rain' (savas eső)?",
+                options: [
+                    "Sulfur dioxide (SO₂) and nitrogen oxides from factories mixing with water vapor.",
+                    "Too much oxygen in the atmosphere.",
+                    "Oil spills in the ocean evaporating into the clouds.",
+                    "High concentrations of plastic waste breaking down."
+                ],
+                correctIndex: 0,
+                explanation: "These gases react with water in the atmosphere to form acids, which then fall back to Earth as acid rain, harming forests and lakes."
+            },
+            {
+                question: "A group of deer (szarvasok) living together in the Gemenc forest at the same time belongs to which level of organization?",
+                options: [
+                    "Biosphere",
+                    "Community (társulás)",
+                    "Population (populáció)",
+                    "Ecosystem"
+                ],
+                correctIndex: 2,
+                explanation: "A population consists of individuals of the SAME species living in the same area at the same time."
+            },
+            {
+                question: "According to Bergmann's Rule, animals of related species living in colder climates (like polar bears) tend to have:",
+                options: [
+                    "Smaller body sizes",
+                    "Larger body sizes",
+                    "Longer legs",
+                    "Green fur for camouflage"
+                ],
+                correctIndex: 1,
+                explanation: "A larger body mass is more efficient for heat production and retention in cold climates."
+            },
+            {
+                question: "What do we call the gradual, long-term process where a community changes over time (e.g., a bare rock slowly turning into a mature forest)?",
+                options: [
+                    "Succession (szukcesszió)",
+                    "Aspect (aszpektus)",
+                    "Eutrophication",
+                    "Photosynthesis"
+                ],
+                correctIndex: 0,
+                explanation: "Succession is the ecological process of change in the species structure of an ecological community over time."
+            },
+            
+            // 15 New Questions
+            {
+                question: "Some species, like certain corals, can only survive in a very specific temperature range. What do ecologists call these species?",
+                options: [
+                    "Broad-tolerance species (tágtűrésű fajok)",
+                    "Narrow-tolerance species (szűktűrésű fajok)",
+                    "Invincible species",
+                    "Pioneer species"
+                ],
+                correctIndex: 1,
+                explanation: "Species that can only survive within a narrow range of environmental conditions are called narrow-tolerance (szűktűrésű) species."
+            },
+            {
+                question: "The air we breathe is mostly made of which gas?",
+                options: [
+                    "Oxygen (21%)",
+                    "Carbon dioxide (0.04%)",
+                    "Nitrogen (78%)",
+                    "Hydrogen (1%)"
+                ],
+                correctIndex: 2,
+                explanation: "The Earth's atmosphere is mostly Nitrogen (78%), followed by Oxygen (21%). Neither limits life, unlike the tiny amount of CO2 which is vital for photosynthesis."
+            },
+            {
+                question: "In a temperate deciduous forest (lombhullató erdő), plants grow in different layers (canopy, shrub, herb layer). What is the main environmental factor that drives this layering (szintezettség)?",
+                options: [
+                    "Wind speed",
+                    "Light availability (fény)",
+                    "Soil pH",
+                    "Predator numbers"
+                ],
+                correctIndex: 1,
+                explanation: "Plants compete for sunlight. Taller trees capture the most direct light, while shrubs and herbs below must adapt to living in the shade (szórt fény)."
+            },
+            {
+                question: "In an ecosystem, fungi and bacteria break down dead organic matter and return nutrients to the soil. What is their ecological role?",
+                options: [
+                    "Producers (termelők)",
+                    "Primary consumers (elsődleges fogyasztók)",
+                    "Decomposers (lebontók)",
+                    "Top predators (csúcsragadozók)"
+                ],
+                correctIndex: 2,
+                explanation: "Decomposers (lebontók) play a crucial role by breaking down dead organisms and recycling their materials back into the soil for plants to use."
+            },
+            {
+                question: "Frogs and snakes often enter a resting state (dormancy) during winter. Why do they do this?",
+                options: [
+                    "They are endotherms (állandó testhőmérsékletűek) and need to save fat.",
+                    "They are ectotherms (változó testhőmérsékletűek) and their body temperature drops with the environment.",
+                    "They are hiding from winter migrating birds.",
+                    "They are waiting for their fur to grow back."
+                ],
+                correctIndex: 1,
+                explanation: "Amphibians and reptiles are ectotherms. They rely on the environment's heat. When it gets cold, their metabolism slows down dramatically."
+            },
+            {
+                question: "If a rabbit population has unlimited food and no predators, it will grow exponentially. However, in reality, growth eventually stops. What limits it?",
+                options: [
+                    "The animals get bored of reproducing.",
+                    "The environment's carrying capacity (eltartóképesség).",
+                    "The ozone layer.",
+                    "Succession."
+                ],
+                correctIndex: 1,
+                explanation: "Every environment has a limit to how many individuals it can support based on available resources, known as its carrying capacity (eltartóképesség)."
+            },
+            {
+                question: "Plants need nitrogen to grow, but they can't use the nitrogen gas (N₂) straight from the air. How do they get it?",
+                options: [
+                    "They absorb it through their leaves when it rains.",
+                    "Nitrogen-fixing bacteria (nitrogéngyűjtő baktériumok) in the soil or roots convert it into a usable form.",
+                    "They eat small insects.",
+                    "They produce it during photosynthesis."
+                ],
+                correctIndex: 1,
+                explanation: "Special bacteria, often living in the root nodules of plants like beans or alfalfa, capture atmospheric nitrogen and turn it into nutrients the plant can absorb."
+            },
+            {
+                question: "When too much fertilizer (műtrágya) washes into a lake, algae grow out of control. When they die, the water loses its oxygen, killing the fish. What is this called?",
+                options: [
+                    "Succession",
+                    "Biomagnification",
+                    "Eutrophication (eutrofizáció)",
+                    "Nitrification"
+                ],
+                correctIndex: 2,
+                explanation: "Eutrophication happens when excess nutrients enter a water body, causing algal blooms that deplete oxygen levels when bacteria decompose them."
+            },
+            {
+                question: "A tapeworm (galandféreg) living inside a mammal's intestine gets food while harming the host. What type of interaction is this?",
+                options: [
+                    "Mutualism (+, +)",
+                    "Competition (-, -)",
+                    "Commensalism (+, 0)",
+                    "Parasitism (+, -)"
+                ],
+                correctIndex: 3,
+                explanation: "In parasitism (élősködés), one organism benefits (the parasite) while the other is harmed (the host)."
+            },
+            {
+                question: "How does physical weathering (fizikai aprózódás) help create soil from solid rock?",
+                options: [
+                    "Water freezes in rock cracks and expands, breaking the rock apart.",
+                    "Acid rain melts the rock into mud.",
+                    "Plant roots release acids that dissolve the rock.",
+                    "Worms eat the rock and excrete soil."
+                ],
+                correctIndex: 0,
+                explanation: "Physical weathering often happens when daily temperature changes or freezing water expand and crack the rocks into smaller pieces, the first step of soil formation."
+            },
+            {
+                question: "Why are top predators (like eagles) more affected by certain toxic pesticides (e.g., DDT) than the insects that originally ate the poisoned plants?",
+                options: [
+                    "Eagles have weaker immune systems.",
+                    "The toxins concentrate as they move up the food chain (felhalmozódás).",
+                    "Eagles intentionally eat the poison.",
+                    "The pesticide reacts with their feathers."
+                ],
+                correctIndex: 1,
+                explanation: "Toxins that don't break down easily accumulate in fatty tissues. As predators eat many contaminated prey items, the toxin concentration gets much higher at the top of the food chain (biological magnification)."
+            },
+            {
+                question: "Which of these makes a species highly vulnerable to extinction?",
+                options: [
+                    "Living in many different habitats worldwide.",
+                    "Being an r-strategist with thousands of offspring.",
+                    "Living only in one specific, isolated habitat (endemic species).",
+                    "Having a broad tolerance (tágtűrésű) for temperature changes."
+                ],
+                correctIndex: 2,
+                explanation: "Species that only live in one specific place are at high risk. If that single habitat is destroyed (e.g., by deforestation), the species has nowhere else to go."
+            },
+            {
+                question: "If you see a flock of ducks swimming together on a lake, but the rest of the lake is empty, what kind of spatial distribution (térbeli eloszlás) is this?",
+                options: [
+                    "Uniform (egyenletes)",
+                    "Random (véletlenszerű)",
+                    "Clumped / Grouped (halmazos)",
+                    "Layered (szintezett)"
+                ],
+                correctIndex: 2,
+                explanation: "Most animals, including herds of deer or flocks of birds, show a clumped (halmazos) distribution because they gather around resources or for social/protective reasons."
+            },
+            {
+                question: "What sits at the very base of an ecological pyramid (ökológiai piramis)?",
+                options: [
+                    "Top predators (csúcsragadozók)",
+                    "Decomposers (lebontók)",
+                    "Producers (termelők, pl. zöld növények)",
+                    "Primary consumers (növényevők)"
+                ],
+                correctIndex: 2,
+                explanation: "Producers, primarily photosynthetic plants and algae, form the base of the food web and the ecological pyramid, providing energy (biomass) for all other levels."
+            },
+            {
+                question: "Why is an oil spill in the ocean so dangerous for marine birds?",
+                options: [
+                    "It makes the fish taste bad.",
+                    "The oil coats their feathers, destroying their waterproof insulation.",
+                    "The birds become too heavy and sink to the bottom immediately.",
+                    "The oil catches fire easily in the sun."
+                ],
+                correctIndex: 1,
+                explanation: "Oil destroys the waterproofing and insulating properties of a bird's feathers, leading to hypothermia and making it impossible for them to fly or hunt."
+            }
+        ];
+
+        // State variables
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        // DOM Elements
+        const screens = {
+            welcome: document.getElementById('welcome-screen'),
+            quiz: document.getElementById('quiz-screen'),
+            result: document.getElementById('result-screen')
+        };
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const questionTracker = document.getElementById('question-tracker');
+        const scoreTracker = document.getElementById('score-tracker');
+        const progressBar = document.getElementById('progress-bar');
+        const nextBtnContainer = document.getElementById('next-btn-container');
+
+        // Functions
+        function hideAllScreens() {
+            Object.values(screens).forEach(screen => screen.classList.add('hide'));
+        }
+
+        function startQuiz() {
+            hideAllScreens();
+            screens.quiz.classList.remove('hide');
+            currentQuestionIndex = 0;
+            score = 0;
+            updateUI();
+            loadQuestion();
+        }
+
+        function updateUI() {
+            questionTracker.textContent = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            scoreTracker.textContent = `Score: ${score}`;
+            const progress = ((currentQuestionIndex) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function loadQuestion() {
+            // Reset state
+            answered = false;
+            nextBtnContainer.classList.add('hide');
+            optionsContainer.innerHTML = '';
+            
+            // Re-trigger animation
+            const qContainer = document.getElementById('question-container');
+            qContainer.classList.remove('animate-fade-in');
+            void qContainer.offsetWidth; // trigger reflow
+            qContainer.classList.add('animate-fade-in');
+
+            const currentData = quizData[currentQuestionIndex];
+            questionText.textContent = currentData.question;
+
+            currentData.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'btn-option w-full text-left bg-slate-800 border-2 border-slate-700 hover:border-brand-primary text-slate-200 font-medium py-4 px-6 rounded-xl text-lg';
+                button.innerHTML = `<span class="inline-block w-8 font-bold text-slate-400">${String.fromCharCode(65 + index)}.</span> ${option}`;
+                button.onclick = () => selectAnswer(index, button);
+                optionsContainer.appendChild(button);
+            });
+            
+            updateUI();
+        }
+
+        function selectAnswer(selectedIndex, selectedButton) {
+            if (answered) return;
+            answered = true;
+
+            const currentData = quizData[currentQuestionIndex];
+            const isCorrect = selectedIndex === currentData.correctIndex;
+
+            const allButtons = optionsContainer.querySelectorAll('button');
+            
+            allButtons.forEach((btn, index) => {
+                btn.classList.add('disabled');
+                btn.disabled = true;
+                
+                if (index === currentData.correctIndex) {
+                    btn.classList.add('correct');
+                } else if (index === selectedIndex && !isCorrect) {
+                    btn.classList.add('incorrect');
+                }
+            });
+
+            if (isCorrect) {
+                score++;
+                scoreTracker.textContent = `Score: ${score}`;
+            }
+
+            // Append explanation below options
+            const expDiv = document.createElement('div');
+            expDiv.className = `mt-4 p-4 rounded-xl text-sm font-medium animate-fade-in ${isCorrect ? 'bg-emerald-900/40 text-emerald-200 border border-emerald-800' : 'bg-red-900/40 text-red-200 border border-red-800'}`;
+            expDiv.innerHTML = `<strong>${isCorrect ? 'Correct! 🎉' : 'Oops! 😬'}</strong> <br> ${currentData.explanation}`;
+            optionsContainer.appendChild(expDiv);
+
+            nextBtnContainer.classList.remove('hide');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            hideAllScreens();
+            screens.result.classList.remove('hide');
+            
+            document.getElementById('final-score').textContent = `${score} / ${quizData.length}`;
+            progressBar.style.width = `100%`;
+
+            const rankText = document.getElementById('rank-text');
+            const resultMsg = document.getElementById('result-message');
+            const resultEmoji = document.getElementById('result-emoji');
+
+            const percentage = (score / quizData.length) * 100;
+
+            if (percentage === 100) {
+                rankText.textContent = "Rank: Biosphere Boss 👑";
+                resultMsg.textContent = "Perfect score! You truly understand how nature works. Mother Earth is proud of you!";
+                resultEmoji.textContent = "🌎";
+            } else if (percentage >= 80) {
+                rankText.textContent = "Rank: Eco-Warrior 🦅";
+                resultMsg.textContent = "Awesome job! You have a great grasp of ecological concepts.";
+                resultEmoji.textContent = "🦊";
+            } else if (percentage >= 50) {
+                rankText.textContent = "Rank: Nature Explorer 🔍";
+                resultMsg.textContent = "Good effort! You know the basics, but a quick review of the materials might help you reach the top.";
+                resultEmoji.textContent = "🌱";
+            } else {
+                rankText.textContent = "Rank: Sprout 🌱";
+                resultMsg.textContent = "Every big tree starts as a small seed! Read through your notes again and give it another try.";
+                resultEmoji.textContent = "📚";
+            }
+        }
+
+        function restartQuiz() {
+            startQuiz();
+        }
+    </script>
+</body>
+</html>
